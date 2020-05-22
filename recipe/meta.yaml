@@ -11,17 +11,21 @@ source:
 build:
   number: 0
   skip: true  # [win and py27]
+  # not all dependencies are built for win32 and py38 
+  skip: true  # [win-32 and py38]
+  # conda-build does not support multiple license files
+  skip: true  # [win]
 
 requirements:
   build:
     - {{ compiler('c') }}
-    - clangdev  # [win]
+    - clang  # [win]
   host:
     - python
     - pip
     - python
     - setuptools
-    - numpy 1.16.*
+    - numpy
     - wheel >=0.32,<0.33
   run:
     - python
