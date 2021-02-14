@@ -17,6 +17,7 @@ requirements:
     - {{ compiler('c') }}
     - clangdev  # [win]
   host:
+    - cython
     - python
     - pip
     - python
