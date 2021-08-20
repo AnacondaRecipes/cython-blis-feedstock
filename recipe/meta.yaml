@@ -22,7 +22,8 @@ requirements:
     - pip
     - python
     - setuptools
-    - numpy 1.16.*
+    - numpy 1.16.*  # [not (osx and arm64)]
+    - numpy 1.21.*  # [osx and arm64]
     - wheel
   run:
     - python
