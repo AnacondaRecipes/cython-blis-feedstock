@@ -22,7 +22,7 @@ requirements:
     - pip
     - python
     - setuptools
-    - numpy {{ nump }}.* 
+    - numpy >=1.16
     - wheel
   run:
     - python
