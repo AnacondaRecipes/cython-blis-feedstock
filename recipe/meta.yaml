@@ -43,7 +43,7 @@ test:
   commands:
     - pip check
     - python -m pytest --tb=native --pyargs blis || true  # [not win]
-    - python -m pytest --tb=native --pyargs blis || exit 0; # [win]
+    - python -m pytest --tb=native --pyargs blis || exit 0 # [win]
   downstreams:
     - spacy
     - thinc
