@@ -10,7 +10,9 @@ source:
 
 build:
   number: 0
-  skip: true  # [win and py27]
+  skip: true  # [win32]
+  missing_dso_whitelist:  # [linux and s390x]
+    - $RPATH/ld64.so.1    # [linux and s390x]
 
 requirements:
   build:
@@ -41,6 +43,9 @@ test:
   commands:
     - pip check
     - python -m pytest --tb=native --pyargs blis
+  downstreams:
+    - spacy
+    - thinc
 
 about:
   home: http://github.com/explosion/cython-blis
