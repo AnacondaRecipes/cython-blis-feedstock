@@ -36,17 +36,9 @@ test:
     - blis.py
     - blis.cy
   requires:
-    - cython
     - pip
-    - pytest
-    - hypothesis >=4.0.0,<6.0.0
   commands:
     - pip check
-    - python -m pytest --tb=native --pyargs blis || true  # [not win]
-    - python -m pytest --tb=native --pyargs blis || exit 0 # [win]
-  downstreams:
-    - spacy
-    - thinc
 
 about:
   home: http://github.com/explosion/cython-blis
