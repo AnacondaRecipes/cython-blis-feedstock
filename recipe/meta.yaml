@@ -1,4 +1,4 @@
-{% set version = "0.7.4" %}
+{% set version = "0.7.7" %}
 
 package:
   name: cython-blis
@@ -6,36 +6,42 @@ package:
 
 source:
   url: https://pypi.io/packages/source/b/blis/blis-{{ version }}.tar.gz
-  sha256: 7daa615a97d4f28db0f332b710bfe1900b15d0c25841c6d727965e4fd91e09cf
+  sha256: 5d4a81f9438db7a19ac8e64ad41331f65a659ea8f3bb1889a9c2088cfd9fe104
 
 build:
-  number: 1
-  skip: true  # [win and py27]
+  number: 0
+  skip: true  # [win32]
+  missing_dso_whitelist:  # [linux and s390x]
+    - $RPATH/ld64.so.1    # [linux and s390x]
 
 requirements:
   build:
     - {{ compiler('c') }}
     - clangdev  # [win]
   host:
-    - cython
     - python
+    - cython >=0.25
+    - numpy
     - pip
     - python
     - setuptools
-    - numpy >=1.16
     - wheel
   run:
     - python
-    - numpy >=1.16
+    - {{ pin_compatible('numpy') }}
 
 test:
   imports:
     - blis
     - blis.py
     - blis.cy
+  requires:
+    - pip
+  commands:
+    - pip check
 
 about:
-  home: http://github.com/explosion/cython-blis
+  home: https://github.com/explosion/cython-blis
   license: BSD-3-Clause
   license_family: BSD
   license_file:
@@ -43,7 +49,7 @@ about:
     - blis/LICENSE
   summary: 'Fast matrix-multiplication as a self-contained Python library – no system dependencies!'
 
-  doc_url: https://github.com/explosion/cython-blis
+  doc_url: https://github.com/explosion/cython-blis/blob/master/README.md
   dev_url: https://github.com/explosion/cython-blis
 
 extra:

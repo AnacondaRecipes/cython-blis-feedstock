@@ -1,11 +1,4 @@
-set "BLIS_COMPILER="
-
-if %ARCH% == 64 (
-  set "CC=clang-cl.exe"
-  set "CXX=clang-cl.exe"
-) else (
-  set "CC=clang-cl.exe -m32"
-  set "CXX=clang-cl.exe -m32"
-)
-
+set "PATH=C:\Program Files\LLVM\bin;%PATH%"
+set "INCLUDE=%$VC_INCLUDEPATH%"
+clang --version
 %PYTHON% -m pip install . --no-deps -vvv
