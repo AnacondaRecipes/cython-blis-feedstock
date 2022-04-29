@@ -41,7 +41,7 @@ test:
     - pip check
 
 about:
-  home: http://github.com/explosion/cython-blis
+  home: https://github.com/explosion/cython-blis
   license: BSD-3-Clause
   license_family: BSD
   license_file:
@@ -49,7 +49,7 @@ about:
     - blis/LICENSE
   summary: 'Fast matrix-multiplication as a self-contained Python library – no system dependencies!'
 
-  doc_url: https://github.com/explosion/cython-blis
+  doc_url: https://github.com/explosion/cython-blis/blob/master/README.md
   dev_url: https://github.com/explosion/cython-blis
 
 extra:
