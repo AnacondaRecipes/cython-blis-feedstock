@@ -1,4 +1,4 @@
-{% set version = "0.7.7" %}
+{% set version = "0.7.9" %}
 
 package:
   name: cython-blis
@@ -6,11 +6,10 @@ package:
 
 source:
   url: https://pypi.io/packages/source/b/blis/blis-{{ version }}.tar.gz
-  sha256: 5d4a81f9438db7a19ac8e64ad41331f65a659ea8f3bb1889a9c2088cfd9fe104
+  sha256: 29ef4c25007785a90ffc2f0ab3d3bd3b75cd2d7856a9a482b7d0dac8d511a09d
 
 build:
   number: 0
-  skip: true  # [win32]
   missing_dso_whitelist:  # [linux and s390x]
     - $RPATH/ld64.so.1    # [linux and s390x]
 
@@ -20,10 +19,9 @@ requirements:
     - clangdev  # [win]
   host:
     - python
-    - cython >=0.25
-    - numpy
+    - cython 0.29.32
+    - numpy  {{ numpy }}
     - pip
-    - python
     - setuptools
     - wheel
   run:
@@ -48,7 +46,8 @@ about:
     - LICENSE
     - blis/LICENSE
   summary: 'Fast matrix-multiplication as a self-contained Python library – no system dependencies!'
-
+  description: |
+    cython-blis provides the Blis linear algebra routines as a self-contained Python C-extension.
   doc_url: https://github.com/explosion/cython-blis/blob/master/README.md
   dev_url: https://github.com/explosion/cython-blis
 
