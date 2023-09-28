@@ -9,7 +9,7 @@ source:
   sha256: 29ef4c25007785a90ffc2f0ab3d3bd3b75cd2d7856a9a482b7d0dac8d511a09d
 
 build:
-  number: 0
+  number: 1
   missing_dso_whitelist:  # [linux and s390x]
     - $RPATH/ld64.so.1    # [linux and s390x]
 
@@ -19,7 +19,7 @@ requirements:
     - clangdev  # [win]
   host:
     - python
-    - cython 0.29.32
+    - cython 0.29
     - numpy  {{ numpy }}
     - pip
     - setuptools
