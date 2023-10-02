@@ -1,4 +1,4 @@
-{% set version = "0.7.9" %}
+{% set version = "0.7.11" %}
 
 package:
   name: cython-blis
@@ -6,7 +6,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/b/blis/blis-{{ version }}.tar.gz
-  sha256: 29ef4c25007785a90ffc2f0ab3d3bd3b75cd2d7856a9a482b7d0dac8d511a09d
+  sha256: cec6d48f75f7ac328ae1b6fbb372dde8c8a57c89559172277f66e01ff08d4d42
 
 build:
   number: 0
@@ -19,7 +19,7 @@ requirements:
     - clangdev  # [win]
   host:
     - python
-    - cython 0.29.32
+    - cython 0.29
     - numpy  {{ numpy }}
     - pip
     - setuptools
