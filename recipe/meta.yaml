@@ -10,6 +10,8 @@ source:
 
 build:
   number: 0
+  # numpy-base >=2.0.0 requires python >=3.9
+  skip: True  # [py<39]
   missing_dso_whitelist:  # [linux and s390x]
     - $RPATH/ld64.so.1    # [linux and s390x]
 
