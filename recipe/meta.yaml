@@ -37,8 +37,11 @@ test:
     - blis.cy
   requires:
     - pip
+    - pytest
+    - hypothesis
   commands:
     - pip check
+    - pytest --tb=native --pyargs blis
 
 about:
   home: https://github.com/explosion/cython-blis
