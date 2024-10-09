@@ -22,7 +22,8 @@ requirements:
   host:
     - python
     - cython 0.29
-    - numpy >=2.0.0,<3.0.0
+    - numpy >=2.0.0,<3.0.0  # [not win]
+    - numpy {{ numpy }}     # [win]
     - pip
     - setuptools
     - wheel
