@@ -18,11 +18,10 @@ build:
 requirements:
   build:
     - {{ compiler('c') }}
-    - {{ compiler('cxx') }}
-    #- clangdev  # [win]
+    - clangdev  # [win]
   host:
     - python
-    - cython 0.29
+    - cython >=0.25
     - numpy >=2.0.0,<2.1.0
     - pip
     - setuptools
