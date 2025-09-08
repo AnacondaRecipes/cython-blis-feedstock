@@ -8,8 +8,9 @@ package:
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: 1695a87e3fc4c20d9b9140f5238cac0514c411b750e8cdcec5d8320c71f62e99
+  # CI processor is not support AVX-512 Prefetch and AVX-512 Exponential and Reciprocal Instructions on WIN
   patches:  # [win]
-    - patches/0001-CI-not-support-AVX-512-Prefetch-Instructions-on-WIN.patch  # [win]
+    - patches/0001-CI-not-support-AVX-512-Prefetch-and-AVX-512-Exponent.patch  # [win]
 
 build:
   number: 0
