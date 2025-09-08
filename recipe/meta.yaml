@@ -60,3 +60,5 @@ extra:
   recipe-maintainers:
     - honnibal
     - ines
+  skip-lints:
+    - should_use_stdlib
