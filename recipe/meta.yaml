@@ -50,7 +50,6 @@ about:
   license_family: BSD
   license_file:
     - LICENSE
-    - blis/LICENSE
   summary: 'Fast matrix-multiplication as a self-contained Python library - no system dependencies!'
   description: |
     cython-blis provides the Blis linear algebra routines as a self-contained Python C-extension.
