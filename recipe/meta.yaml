@@ -1,47 +1,48 @@
-{% set version = "1.0.1" %}
+{% set name = "blis" %}
+{% set version = "1.3.0" %}
 
 package:
-  name: cython-blis
+  name: cython-{{ name }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/b/blis/blis-{{ version }}.tar.gz
-  sha256: 91739cd850ca8100dcddbd8ad66942cab20c9473cdea9a35b165b11d7b8d91e4
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: 1695a87e3fc4c20d9b9140f5238cac0514c411b750e8cdcec5d8320c71f62e99
 
 build:
   number: 0
-  # numpy-base >=2.0.0 requires python >=3.9
-  skip: True  # [py<39]
-  missing_dso_whitelist:  # [linux and s390x]
-    - $RPATH/ld64.so.1    # [linux and s390x]
+  missing_dso_whitelist:  # [linux]
+    - $RPATH/ld64.so.1    # [linux]
+  skip: True  # [py<36 or py>313]
 
 requirements:
   build:
     - {{ compiler('c') }}
     - clangdev  # [win]
   host:
-    - python
-    - cython >=0.25
-    - numpy >=2.0.0,<3.0.0
     - pip
-    - setuptools
+    - python
     - wheel
+    - setuptools
+    - cython >=3.0,<4.0
+    - numpy >=1.19.3,<3.0.0
   run:
     - python
-    - numpy >=2.0.0,<3.0.0
+    - numpy >=1.15.0,<3.0.0  # [py<39]
+    - numpy >=1.19.0,<3.0.0  # [py>=39]
 
 test:
   imports:
     - blis
     - blis.py
     - blis.cy
+  commands:
+    - pip check
+    - pytest --tb=native --pyargs blis
   requires:
     - pip
     - pytest
     - hypothesis
-  commands:
-    - pip check
-    - pytest --tb=native --pyargs blis
 
 about:
   home: https://github.com/explosion/cython-blis
