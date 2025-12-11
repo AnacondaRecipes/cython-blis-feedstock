@@ -1,47 +1,55 @@
-{% set version = "1.0.1" %}
+{% set name = "blis" %}
+{% set version = "1.3.3" %}
 
 package:
-  name: cython-blis
+  name: cython-{{ name }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/b/blis/blis-{{ version }}.tar.gz
-  sha256: 91739cd850ca8100dcddbd8ad66942cab20c9473cdea9a35b165b11d7b8d91e4
+  url: https://github.com/explosion/cython-{{ name }}/archive/refs/tags/release-v{{ version }}.tar.gz
+  sha256: d0c44c903aa0c026bb337ab8b380242aa4a5a1c33e2da9b732f67a6cb3d84712
+  # CI processor is not support AVX-512 Prefetch and AVX-512 Exponential and Reciprocal Instructions on WIN
+  # Changes where copied from the latest version of upstream as the pull request with the fix didn't make to release
+  # https://github.com/explosion/cython-blis/blob/main/blis/_src/config/knl/make_defs.mk
+  # https://github.com/explosion/cython-blis/blob/main/blis/_src/make/windows-x86_64.jsonl
+  patches:  # [win]
+    - patches/0001-Disable-obsolete-AVX512-flags.patch  # [win]
 
 build:
   number: 0
-  # numpy-base >=2.0.0 requires python >=3.9
-  skip: True  # [py<39]
-  missing_dso_whitelist:  # [linux and s390x]
-    - $RPATH/ld64.so.1    # [linux and s390x]
+  missing_dso_whitelist:  # [linux]
+    - $RPATH/ld64.so.1    # [linux]
+  skip: True  # [py<36 or py>313]
 
 requirements:
   build:
+    - {{ stdlib('c') }}
     - {{ compiler('c') }}
     - clangdev  # [win]
   host:
-    - python
-    - cython >=0.25
-    - numpy >=2.0.0,<3.0.0
     - pip
-    - setuptools
+    - python
     - wheel
+    - setuptools
+    - cython >=3.0,<4.0
+    - numpy >=1.19.3,<3.0.0
   run:
     - python
-    - numpy >=2.0.0,<3.0.0
+    - numpy >=1.15.0,<3.0.0  # [py<39]
+    - numpy >=1.19.0,<3.0.0  # [py>=39]
 
 test:
   imports:
     - blis
     - blis.py
     - blis.cy
+  commands:
+    - pip check
+    - pytest --tb=native --pyargs blis
   requires:
     - pip
     - pytest
     - hypothesis
-  commands:
-    - pip check
-    - pytest --tb=native --pyargs blis
 
 about:
   home: https://github.com/explosion/cython-blis
@@ -49,7 +57,6 @@ about:
   license_family: BSD
   license_file:
     - LICENSE
-    - blis/LICENSE
   summary: 'Fast matrix-multiplication as a self-contained Python library - no system dependencies!'
   description: |
     cython-blis provides the Blis linear algebra routines as a self-contained Python C-extension.
@@ -60,3 +67,6 @@ extra:
   recipe-maintainers:
     - honnibal
     - ines
+  skip-lints:
+    - should_use_stdlib
+    - patch_unnecessary
