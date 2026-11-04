@@ -17,7 +17,7 @@ source:
 
 build:
   number: 0
-  skip: true  # [py<39 or py>314]
+  skip: true  # [py<39 or py>315]
 
 requirements:
   build:
@@ -30,11 +30,9 @@ requirements:
     - setuptools
     - cython >=3.1,<4.0
     - numpy {{ numpy }}
-    - numpy >=2.0.0,<3.0.0
   run:
     - python
     - numpy {{ numpy }}
-    - {{ pin_compatible('numpy') }}
 
 test:
   imports:
