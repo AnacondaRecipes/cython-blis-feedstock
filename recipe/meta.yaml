@@ -1,5 +1,5 @@
 {% set name = "blis" %}
-{% set version = "1.3.3" %}
+{% set version = "1.3.4" %}
 
 package:
   name: cython-{{ name }}
@@ -7,17 +7,11 @@ package:
 
 source:
   url: https://github.com/explosion/cython-{{ name }}/archive/refs/tags/release-v{{ version }}.tar.gz
-  sha256: d0c44c903aa0c026bb337ab8b380242aa4a5a1c33e2da9b732f67a6cb3d84712
-  # CI processor is not support AVX-512 Prefetch and AVX-512 Exponential and Reciprocal Instructions on WIN
-  # Changes where copied from the latest version of upstream as the pull request with the fix didn't make to release
-  # https://github.com/explosion/cython-blis/blob/main/blis/_src/config/knl/make_defs.mk
-  # https://github.com/explosion/cython-blis/blob/main/blis/_src/make/windows-x86_64.jsonl
-  patches:  # [win]
-    - patches/0001-Disable-obsolete-AVX512-flags.patch  # [win]
+  sha256: 0dea6eadb7e9ffdb7717e21b4887be66a56945dbb8ba4f8e6cb81bd766b88af4
 
 build:
-  number: 1
-  skip: True  # [py<39 or py>314]
+  number: 0
+  skip: true  # [py<39 or py>315]
 
 requirements:
   build:
@@ -35,13 +29,15 @@ requirements:
     - numpy {{ numpy }}
 
 test:
+  source_files:
+    - tests
   imports:
     - blis
     - blis.py
     - blis.cy
   commands:
     - pip check
-    - pytest --tb=native --pyargs blis
+    - pytest --tb=native tests/
   requires:
     - pip
     - pytest
@@ -65,4 +61,3 @@ extra:
     - ines
   skip-lints:
     - should_use_stdlib
-    - patch_unnecessary
